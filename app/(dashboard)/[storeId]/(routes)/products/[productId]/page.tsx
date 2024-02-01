@@ -36,10 +36,7 @@ const ProductPage = async ({
       size: true
     }
   });
-        console.log(sizes)
-        console.log(sizes)
-        console.log(sizes)
-        console.log(sizes)
+   
 
   const colors = await prismadb.productColors.findMany({
     where: {
@@ -53,10 +50,7 @@ const ProductPage = async ({
     where: {      storeId: params.storeId,
     },
   });
-  console.log(defaultColors)
-  console.log(defaultColors)
-  console.log(defaultColors)
-  console.log(defaultColors)
+
   const defaultSizes = await prismadb.size.findMany ({
     where: {      storeId: params.storeId,
     },

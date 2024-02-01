@@ -108,7 +108,8 @@ model Product {
   quantity      Int          @default(0)  // New field for quantity with a default value of 0
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-
+  size       Size[]
+  color      Color[]
   @@index([storeId])
   @@index([categoryId])
   @@index([subcategoryId])
@@ -117,7 +118,7 @@ model Product {
 }
 model ProductSizes {
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   size Size @relation(fields: [sizeId], references: [id])
   sizeId String
@@ -130,7 +131,7 @@ model ProductSizes {
 
 model ProductColors {
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   color Color @relation(fields: [colorId], references: [id])
   colorId String
@@ -175,7 +176,7 @@ model Size {
   store       Store     @relation("StoreToSize", fields: [storeId], references: [id])
   name        String
   value       String
-  //products    Product[] // Relation to Product model
+  products    Product[] // Relation to Product model
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -189,7 +190,8 @@ model Color {
   store       Store    @relation("StoreToColor", fields: [storeId], references: [id])
   name        String
   value       String
-  products    ProductColors[] 
+  productsColors    ProductColors[] 
+  products    Product[] 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
