@@ -142,21 +142,19 @@ model ProductColors {
   @@index([colorId])
 }
 model Order {
-  id        String    @id @default(uuid())
-  storeId     String    // Foreign Key to Store
-  store       Store     @relation("StoreToOrder", fields: [storeId], references: [id])
+  id         String    @id @default(uuid())
+  storeId    String    // Foreign Key to Store
+  store      Store     @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems OrderItem[] // Relation to OrderItem model
   isPaid     Boolean   @default(false)
   phone      String    @default("")
   address    String    @default("")
-  
-
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
   @@index([storeId])
-
+ 
 }
 
 // Intermediary for a many-to-many relationship
@@ -166,9 +164,14 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id])
   productId String  // Foreign Key to Product
   product   Product @relation(fields: [productId], references: [id])
-
+  userId      String      // Foreign Key to User
+  user        User        @relation(fields: [userId], references: [externalId])
+  metadata Json ///ADDED
+  color String  ///ADDED
+  size String   ///ADDED
   @@index([orderId])
   @@index([productId])
+  @@index([userId])
 }
 model Size {
   id          String    @id @default(uuid())
@@ -230,9 +233,10 @@ model User {
   id          Int       @id @default(autoincrement())
   externalId  String    @unique
   attributes  Json
-  
   comments    Comment[]
-
+  orderItem       OrderItem[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
+
+

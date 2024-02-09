@@ -62,6 +62,12 @@ export function MainNav({
       active: pathname === `/${params.storeId}/orders`,
     },
     {
+      href: `/${params.storeId}/fullfill`,
+      label: 'Fullfill',
+      icon: <FaClipboardList />,
+      active: pathname === `/${params.storeId}/fullfill`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: 'Settings',
       icon: <FaCog />,
